@@ -6,7 +6,13 @@ require("dotenv").config();
 
 const app = express();
 
-
+mongoose.connect(process.env.CONNECTION_STRING, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
+});
+mongoose.connection.once("open", () => {
+  console.log("database connected");
+})
 
 app.use("/graphql", graphqlHTTP({
   schema,
