@@ -12,7 +12,10 @@ const {
 var books = [
   { name: "Book 1", genre: "The good type", id: "1", authorID: "1" },
   { name: "Book 2", genre: "The average type", id: "2", authorID: "2"  },
-  { name: "Book 3", genre: "The bad type", id: "3", authorID: "3"  }
+  { name: "Book 3", genre: "The bad type", id: "3", authorID: "3"  },
+  { name: "Book 4", genre: "The wonderful type", id: "1", authorID: "2" },
+  { name: "Book 5", genre: "The bad type", id: "2", authorID: "3"  },
+  { name: "Book 6", genre: "The goof type", id: "3", authorID: "3"  }
 ]
 
 var authors = [
