@@ -10,21 +10,6 @@ const {
   GraphQLSchema 
 } = graphql;
 
-var books = [
-  { name: "Book 1", genre: "The good type", id: "1", authorID: "1" },
-  { name: "Book 2", genre: "The average type", id: "2", authorID: "2"  },
-  { name: "Book 3", genre: "The bad type", id: "3", authorID: "3"  },
-  { name: "Book 4", genre: "The wonderful type", id: "1", authorID: "2" },
-  { name: "Book 5", genre: "The bad type", id: "2", authorID: "3"  },
-  { name: "Book 6", genre: "The good type", id: "3", authorID: "3"  }
-]
-
-var authors = [
-  { name: "Barbra", age: 50, id: "1" },
-  { name: "Jim", age: 60, id: "2" },
-  { name: "Bruce", age: 70, id: "3" }
-]
-
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => ({
@@ -34,7 +19,7 @@ const BookType = new GraphQLObjectType({
     author: { 
       type: AuthorType,
       resolve(parent, args){
-        return _.find(authors, { id: parent.authorID });
+        //return _.find(authors, { id: parent.authorID });
       }
     }
   })
@@ -49,7 +34,7 @@ const AuthorType = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args){
-        return _.filter(books, { authorID: parent.id });
+        //return _.filter(books, { authorID: parent.id });
       }
     }
   })
@@ -65,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID }
       },
       resolve(parent, args){
-        return _.find(books, { id: args.id });
+        //return _.find(books, { id: args.id });
       }
     },
     author: {
@@ -74,19 +59,19 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID }
       },
       resolve(parent, args){
-        return _.find(authors, { id: args.id });
+        //return _.find(authors, { id: args.id });
       }
     },
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args){
-        return books
+        //return books
       }
     },
     authors: {
       type: new GraphQLList(AuthorType),
       resolve(parent, args){
-        return authors
+        //return authors
       }
     }
   }
