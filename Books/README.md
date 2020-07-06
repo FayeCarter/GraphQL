@@ -9,7 +9,7 @@ React application using Apollo and Graph Ql to render book queries from MongoDb.
 
 ### Demo
 
-
+![](./images/BookKeep.gif)
 
 ### Running Instructions
 
