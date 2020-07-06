@@ -37,6 +37,16 @@ class AddBook extends Component {
       },
       refetchQueries: [{ query: getBooksQuery }]
     });
+    this.resetForm(e);
+  }
+
+  resetForm(e) {
+    e.target.reset()
+    this.state = {
+      name: "",
+      genre: "",
+      authorID: "",
+    }
   }
 
   render() {
