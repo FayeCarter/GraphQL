@@ -1,6 +1,6 @@
 # Book Keep
 
-An introduction to GraphQl and Apollo.
+An introduction to GraphQl and Apollo following [this](https://www.youtube.com/watch?v=Y0lDGjwRYKw&list=PL4cUxeGkcC9iK6Qhn-QLcXCXPQUov1U7f) tutorial.
 React application using Apollo and Graph Ql to render book queries from MongoDb. 
 
 ### Key features:
