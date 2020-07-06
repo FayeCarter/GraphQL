@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getStoryIds } from "../services/hackerNewsApi" ;
+import { getStoryIds, getStory } from "../services/hackerNewsApi" ;
+import { Story } from "../components/Story";
 
 export const StoriesContainer = () => {
   const [storyIds, setStoryIds] = useState([]);
@@ -8,7 +9,5 @@ export const StoriesContainer = () => {
     getStoryIds().then(data => setStoryIds(data));
   }, []);
 
-  return (
-    <p>{ JSON.stringify(storyIds) }</p>
-  )
+  return storyIds.map( storyId => <Story storyId={ storyId } />);
 };
