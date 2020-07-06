@@ -8,7 +8,7 @@ class BookDetails extends Component {
     if ( book ) {
       return(
         <div>
-          <h2>Title: { book.name }</h2>
+          <h2>{ book.name }</h2>
           <p>Genre: { book.genre }</p>
           <p>Author: { book.author.name }</p>
           <p>More from { book.author.name }: </p>
