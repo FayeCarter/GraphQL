@@ -4,6 +4,15 @@ import  { getAuthorQuery } from "../queries/queries"
 
 class AddBook extends Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      name: "",
+      genre: "",
+      authorID: "",
+    }
+  }
+  
   displayAuthors(){
     var data = this.props.data;
     if ( data.loading ) {
@@ -22,17 +31,17 @@ class AddBook extends Component {
       <form id="add-book">
         <div className="field">
           <label>BookName:</label>
-          <input type="text" />
+          <input type="text" onChange={(e) => this.state({ name: e.target.value })} />
         </div>
 
         <div className="field">
           <label>Genre:</label>
-          <input type="text" />
+          <input type="text" onChange={(e) => this.state({ genre: e.target.value })} />
         </div>
 
         <div className="field">
           <label>Author:</label>
-          <select>
+          <select onChange={(e) => this.state({ authorID: e.target.value })} >
             { this.displayAuthors() }
           </select>
         </div>
