@@ -13,6 +13,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {
   useNewUrlParser: true, 
   useUnifiedTopology: true 
 });
+
 mongoose.connection.once("open", () => {
   console.log("database connected");
 })

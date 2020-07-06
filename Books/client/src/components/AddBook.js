@@ -42,7 +42,7 @@ class AddBook extends Component {
 
   resetForm(e) {
     e.target.reset()
-    this.state = {
+    this.setState = {
       name: "",
       genre: "",
       authorID: "",
