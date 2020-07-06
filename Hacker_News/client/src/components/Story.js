@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { getStory } from "../services/hackerNewsApi";
 
 export const Story = ({ storyId }) => {
+  const [story, setStory] = useState({});
 
   useEffect(() => {
-
+    getStory(storyId).then(data => data && data.url && setStory(data))
   }, [])
 
   return (
-    <p>I'm a story { storyId }</p>
+    <p>{ JSON.stringify(story) }</p>
   );
 };
