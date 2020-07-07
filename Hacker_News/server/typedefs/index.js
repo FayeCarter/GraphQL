@@ -9,8 +9,8 @@ export const typeDefs = gql`
     id: ID!
     title: String
     author: String
-    rel: String
+    url: String
     time: String
-    source String
+    source: String
   }
 `;
