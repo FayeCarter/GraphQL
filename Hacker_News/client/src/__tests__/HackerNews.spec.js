@@ -10,8 +10,6 @@ describe("Hacker news API", () => {
     jest.resetAllMocks();
   }); 
 
-
-
   describe("getStory functionality", () => {
     it("requests and gets a story from HackerNews Api", async () => {
       axios.get.mockImplementation(() => 
@@ -22,7 +20,17 @@ describe("Hacker news API", () => {
       expect(axios.get).toHaveBeenCalledTimes(1);
       expect(axios.get).toHaveBeenCalledWith(`${storyURL + 1}.json`);
       expect(entity).toEqual(singularStory);
-
     })
+
+    it("does not retrieve a story from the HackerNews Api without breaking", async () => {
+      axios.get.mockImplementation(() => 
+        Promise.resolve({ data: emptySingularStory }) 
+      );
+
+      const entity = await getStory(1);
+      expect(axios.get).toHaveBeenCalledTimes(1);
+      expect(axios.get).toHaveBeenCalledWith(`${storyURL + 1}.json`);
+      expect(entity).toEqual(emptySingularStory);
+    });
   })
 });
