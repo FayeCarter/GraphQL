@@ -11,7 +11,7 @@ export const Story = ({ storyId }) => {
   }, [])
 
   return story && story.url ? (
-    <StoryWrapper data-testid="stroy" >
+    <StoryWrapper data-testid="story" >
       <StoryTitle >
         <a href={story.url}>{ story.title }</a>
       </StoryTitle>
