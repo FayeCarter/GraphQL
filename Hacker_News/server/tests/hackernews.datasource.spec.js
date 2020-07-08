@@ -15,4 +15,8 @@ describe("[HackerNewsAPI.articleReducer]", () => {
       getArticlePostReducerStub
     )
   });
+
+  it("doesn't transform using the article reducer if no article passed to it", () => {
+    expect(datasource.articleReducer()).toEqual(emptyReducerReturnValue)
+  });
 });
