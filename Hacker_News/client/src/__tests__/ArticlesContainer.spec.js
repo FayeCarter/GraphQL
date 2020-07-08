@@ -43,5 +43,6 @@ test('renders the <ArticlesContainer /> with an article', async () => {
     expect(getByText("News Articles")).toBeTruthy(),
     expect(getByText("Test Story")).toBeTruthy(),
     expect(queryByTestId("article-author").textContent).toEqual("By: Faye Carter"),
+    expect(queryByTestId("article-source").textContent).toEqual("Source: hackernews"),
   ]);
 });
