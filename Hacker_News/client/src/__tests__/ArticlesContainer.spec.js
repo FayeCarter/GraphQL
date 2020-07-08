@@ -46,3 +46,36 @@ test('renders the <ArticlesContainer /> with an article', async () => {
     expect(queryByTestId("article-source").textContent).toEqual("Source: hackernews"),
   ]);
 });
+
+test('does not render when there is no article', async () => {
+
+  const noArticlesMocks = [
+    {
+      request: {
+        query: GET_ALL_ARTICLES,
+      },
+      result: {
+        data: {
+          ... noArticles,
+        },
+      },
+    },
+  ];
+
+  useInfiniteScroll.mockImplementation( () => ({
+    count: ARTICLE_INCREMENT,
+  }));
+
+  const { queryByText, queryByTestId } = render(
+    <MockedProvider mocks={noArticlesMocks} >
+      <ArticlesContainer />
+    </ MockedProvider>
+  );
+
+  await waitForElement(() => [
+    expect(queryByText("News Articles")).toBeTruthy(),
+    expect(queryByText("Test Story")).toBeFalsy(),
+    expect(queryByTestId("article-author")).toBeFalsy(),
+    expect(queryByTestId("article-source")).toBeFalsy(),
+  ]);
+});
