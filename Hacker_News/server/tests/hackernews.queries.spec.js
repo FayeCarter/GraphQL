@@ -19,8 +19,8 @@ const GET_ARTICLE_BY_ID_AND_SOURCE = gql`
 `;
 
 const GET_ARTICLES_BY_SOURCE = gql`
-  query getArticlesBySource($id: ID!, $source: String!) {
-    articleBySource(ids: $ids, source: $source) {
+  query getArticlesBySource($id: [ID!]!, $source: String!) {
+    articlesBySource(ids: $ids, source: $source) {
       id
       title
       author
@@ -59,7 +59,7 @@ const constructTestServer = () => {
 }
 
 describe("[Queries.HackerNewsAPI]", () => {
-  it("fetches and article from the HackerNews API", async () => {
+  it("fetches an article from the HackerNews API", async () => {
     const { server, hackerNewsAPI } = constructTestServer();
 
     hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
@@ -72,5 +72,20 @@ describe("[Queries.HackerNewsAPI]", () => {
     })
 
     expect(result).toMatchSnapshot();
-  })
+  });
+
+  it("fetches an array of articles from the HackerNews API", async () => {
+    const { server, hackerNewsAPI } = constructTestServer();
+
+    hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
+
+    const { query } = createTestClient(server);
+
+    const result = await query({
+      query: GET_ARTICLES_BY_SOURCE,
+      variables: { id: [21168364], source: "hackernews" }
+    })
+
+    expect(result).toMatchSnapshot();
+  });
 })
