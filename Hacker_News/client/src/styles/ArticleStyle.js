@@ -32,8 +32,8 @@ export const ArticleTitle = styled.h1`
 export const ArticleMeta = styled.div`
   font-style: italic;
 
-  > span:first-child {
-    margin-right: 10px;
+  > span:not(:first-child) {
+    margin-left: 10px;
   }
 
   > span:not(:first-child):before {
