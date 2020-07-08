@@ -7,7 +7,7 @@ import { getArticlePreReducerStub } from '../fixtures/hackernews';
 
 const GET_ARTICLE_BY_ID_AND_SOURCE = gql`
   query getArticleByIdAndSource($id: ID!, $source: String!) {
-    articleBySource(id: $id!, source: $source) {
+    articleBySource(id: $id, source: $source) {
       id
       title
       author
@@ -20,7 +20,7 @@ const GET_ARTICLE_BY_ID_AND_SOURCE = gql`
 
 const GET_ARTICLES_BY_SOURCE = gql`
   query getArticlesBySource($id: ID!, $source: String!) {
-    articleBySource(ids: $ids!, source: $source) {
+    articleBySource(ids: $ids, source: $source) {
       id
       title
       author
@@ -33,7 +33,7 @@ const GET_ARTICLES_BY_SOURCE = gql`
 
 const GET_ALL_ARTICLES = gql`
   query getAllArticles {
-    allArticles() {
+    allArticles {
       id
       title
       author
@@ -45,15 +45,32 @@ const GET_ALL_ARTICLES = gql`
 `;
 
 const constructTestServer = () => {
-  const HackerNewsAPI = new HackerNewsAPI();
+  const hackerNewsAPI = new HackerNewsAPI();
 
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     dataSources: () => ({
-      hackernews: HackerNewsAPI
+      hackernews: hackerNewsAPI
     })
   });
 
-  return { server, HackerNewsAPI };
+  return { server, hackerNewsAPI };
 }
+
+describe("[Queries.HackerNewsAPI]", () => {
+  it("fetches and article from the HackerNews API", async () => {
+    const { server, hackerNewsAPI } = constructTestServer();
+
+    hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
+
+    const { query } = createTestClient(server);
+
+    const result = await query({
+      query: GET_ARTICLE_BY_ID_AND_SOURCE,
+      variables: { id: 21168364, source: "hackernews" }
+    })
+
+    expect(result).toMatchSnapshot();
+  })
+})
