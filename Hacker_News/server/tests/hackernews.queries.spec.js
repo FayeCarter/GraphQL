@@ -44,3 +44,16 @@ const GET_ALL_ARTICLES = gql`
   }
 `;
 
+const constructTestServer = () => {
+  const HackerNewsAPI = new HackerNewsAPI();
+
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources: () => ({
+      hackernews: HackerNewsAPI
+    })
+  });
+
+  return { server, HackerNewsAPI };
+}
