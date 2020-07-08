@@ -31,3 +31,14 @@ describe("[HackerNewsAPI.getArticle]", () => {
     expect(datasource.get).toBeCalledWith('item/21168364.json');
   });
 });
+
+describe("[HackerNewsAPI.getArticleByIds]", () => {
+  it("gets an array of articles from the HackerNewsAPI", async () => {
+    datasource.get.mockReturnValue(getArticlePreReducerStub);
+    const response = await datasource.getArticleByIds([21168364]);
+
+    expect(response).toEqual([getArticlePostReducerStub]);
+    expect(datasource.get).toHaveBeenCalled();
+    expect(datasource.get).toBeCalledWith('item/21168364.json');
+  });
+});
