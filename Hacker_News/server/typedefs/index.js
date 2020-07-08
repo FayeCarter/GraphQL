@@ -2,7 +2,7 @@ import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
   type Query {
-    alLArticles: [Article!]!
+    allArticles: [Article!]!
     allArticlesBySource(source: String!): [Article!]!
     articleBySource(id: ID!, source: String!): Article
     articlesBySource(ids: [Int]!, source: String!): [Article!]!
