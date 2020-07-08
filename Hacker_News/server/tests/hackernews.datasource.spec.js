@@ -53,3 +53,16 @@ describe("[HackerNewsAPI.getAllArticleIds]", () => {
     expect(datasource.get).toBeCalledWith('topstories.json');
   });
 });
+
+describe("[HackerNewsAPI.getAllArticles]", () => {
+  it("gets an array of all articles from the hacker news api", async () => {
+    datasource.getAllArticleIds = jest.fn();
+    datasource.getAllArticleIds.mockReturnValue(getAllArticleIdsStub);
+    datasource.get.mockReturnValue(getArticlePreReducerStub);
+    const response = await datasource.getAllArticles();
+
+    expect(response).toEqual([getArticlePostReducerStub]);
+    expect(datasource.get).toHaveBeenCalled();
+    expect(datasource.get).toBeCalledWith('item/21168364.json');
+  });
+});
