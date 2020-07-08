@@ -83,7 +83,21 @@ describe("[Queries.HackerNewsAPI]", () => {
 
     const result = await query({
       query: GET_ARTICLES_BY_SOURCE,
-      variables: { id: [21168364], source: "hackernews" }
+      variables: { ids: [21168364], source: "hackernews" }
+    })
+
+    expect(result).toMatchSnapshot();
+  });
+
+  it("fetches an array of all articles from the HackerNews API", async () => {
+    const { server, hackerNewsAPI } = constructTestServer();
+
+    hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
+
+    const { query } = createTestClient(server);
+
+    const result = await query({
+      query: GET_ALL_ARTICLES,
     })
 
     expect(result).toMatchSnapshot();
