@@ -19,7 +19,7 @@ const GET_ARTICLE_BY_ID_AND_SOURCE = gql`
 `;
 
 const GET_ARTICLES_BY_SOURCE = gql`
-  query getArticlesBySource($id: [ID!]!, $source: String!) {
+  query getArticlesBySource($ids: [Int!]!, $source: String!) {
     articlesBySource(ids: $ids, source: $source) {
       id
       title
@@ -58,48 +58,48 @@ const constructTestServer = () => {
   return { server, hackerNewsAPI };
 }
 
-describe("[Queries.HackerNewsAPI]", () => {
-  it("fetches an article from the HackerNews API", async () => {
+describe('[Queries.HackerNewsAPI]', () => {
+  it('fetches an article from the HackerNews API', async () => {
     const { server, hackerNewsAPI } = constructTestServer();
 
     hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
 
     const { query } = createTestClient(server);
 
-    const result = await query({
+    const response = await query({
       query: GET_ARTICLE_BY_ID_AND_SOURCE,
-      variables: { id: 21168364, source: "hackernews" }
-    })
+      variables: { id: 21168364, source: 'hackernews' },
+    });
 
-    expect(result).toMatchSnapshot();
+    expect(response).toMatchSnapshot();
   });
 
-  it("fetches an array of articles from the HackerNews API", async () => {
+  it('fetches an array of articles from the HackerNews API', async () => {
     const { server, hackerNewsAPI } = constructTestServer();
 
     hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
 
     const { query } = createTestClient(server);
 
-    const result = await query({
+    const response = await query({
       query: GET_ARTICLES_BY_SOURCE,
-      variables: { ids: [21168364], source: "hackernews" }
-    })
+      variables: { ids: [21168364], source: 'hackernews' },
+    });
 
-    expect(result).toMatchSnapshot();
+    expect(response).toMatchSnapshot();
   });
 
-  it("fetches an array of all articles from the HackerNews API", async () => {
+  it('fetches an array of all the articles from the HackerNews API', async () => {
     const { server, hackerNewsAPI } = constructTestServer();
 
-    hackerNewsAPI.get = jest.fn(() => getArticlePreReducerStub);
+    hackerNewsAPI.get = jest.fn(() => [getArticlePreReducerStub]);
 
     const { query } = createTestClient(server);
 
-    const result = await query({
+    const response = await query({
       query: GET_ALL_ARTICLES,
-    })
+    });
 
-    expect(result).toMatchSnapshot();
+    expect(response).toMatchSnapshot();
   });
-})
+});

@@ -7,7 +7,7 @@ export const resolvers = {
         )
       ).then(result => result.reduce((acc, data) =>  acc.concat(data), [])),
 
-    allArticlesBySource: (_, { id, source }, { dataSources }) =>
+    allArticlesBySource: (_, { source }, { dataSources }) =>
     dataSources[source].getAllArticles(),
 
     articleBySource: (_, { id, source }, { dataSources }) =>
