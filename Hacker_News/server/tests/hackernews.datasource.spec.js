@@ -42,3 +42,14 @@ describe("[HackerNewsAPI.getArticleByIds]", () => {
     expect(datasource.get).toBeCalledWith('item/21168364.json');
   });
 });
+
+describe("[HackerNewsAPI.getAllArticleIds]", () => {
+  it("gets an array of articles from the hacker news api", async () => {
+    datasource.get.mockReturnValue([getAllArticleIdsStub]);
+    const response = await datasource.getAllArticleIds([21168364]);
+
+    expect(response).toEqual([getAllArticleIdsStub]);
+    expect(datasource.get).toHaveBeenCalled();
+    expect(datasource.get).toBeCalledWith('topstories.json');
+  });
+});
