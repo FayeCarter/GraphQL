@@ -20,3 +20,14 @@ describe("[HackerNewsAPI.articleReducer]", () => {
     expect(datasource.articleReducer()).toEqual(emptyReducerReturnValue)
   });
 });
+
+describe("[HackerNewsAPI.getArticle]", () => {
+  it("gets a single article from the hacker news api", async () => {
+    datasource.get.mockReturnValue(getArticlePreReducerStub);
+    const response = await datasource.getArticle(21168364);
+
+    expect(response).toEqual(getArticlePostReducerStub);
+    expect(datasource.get).toHaveBeenCalled();
+    expect(datasource.get).toBeCalledWith('item/21168364.json');
+  });
+});
